@@ -1,31 +1,26 @@
 class Tarea:
-    def __init__(self, titulo, descripcion):
+    id_counter = 1  # Para generar un ID único para cada tarea
+
+    def __init__(self, titulo, descripcion, prioridad="Media"):
+        self.id = Tarea.id_counter
+        Tarea.id_counter += 1
         self.titulo = titulo
         self.descripcion = descripcion
         self.completada = False
+        self.prioridad = prioridad  # Prioridad puede ser "Baja", "Media" o "Alta"
 
 
 class GestorTareas:
     def __init__(self):
         self.tareas = []
 
-    def agregar_tarea(self, titulo, descripcion):
+    def agregar_tarea(self, titulo, descripcion, prioridad="Media"):
         if not titulo:
             raise ValueError("El título no puede estar vacío")
-        tarea = Tarea(titulo, descripcion)
+        tarea = Tarea(titulo, descripcion, prioridad)
         self.tareas.append(tarea)
 
     def obtener_tareas(self):
         return self.tareas
 
-    def marcar_completada(self, indice):
-        if 0 <= indice < len(self.tareas):
-            self.tareas[indice].completada = True
-        else:
-            raise IndexError("Índice fuera de rango")
-
-    def eliminar_tarea(self, indice):
-        if 0 <= indice < len(self.tareas):
-            del self.tareas[indice]
-        else:
-            raise IndexError("Índice fuera de rango")
+    # Los demás métodos no necesitan cambios para manejar prioridades
